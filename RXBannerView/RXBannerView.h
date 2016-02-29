@@ -10,4 +10,17 @@
 
 @interface RXBannerView : UIView
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 @end
