@@ -7,7 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RXPageControl.h"
 
+@class RXBannerView;
+
+@protocol RXBannerViewDataSource <NSObject>
+
+- (NSInteger)numberOfPageInRXBannerView:(RXBannerView *)rxBannerView;
+
+- (UIView *)rxBannerView:(RXBannerView *)rxBannerView viewAtIndex:(NSInteger)index;
+
+@end
+
+
+// 需要把vc的edgesForExtendedLayout = UIRectEdgeNone;
 @interface RXBannerView : UIView
 
 
@@ -15,8 +28,13 @@
 
 
 
+@property (nonatomic, weak) id<RXBannerViewDataSource> delegate;
 
 
+- (void)reloadData;
+
+
+@property (nonatomic, readonly) RXPageControl *rxPageControl;
 
 
 
