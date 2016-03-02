@@ -37,6 +37,8 @@
     return view;
 }
 
+
+#pragma mark - View Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -45,6 +47,7 @@
     self.rxBannerView.dataSource = self;
     
     [self.rxBannerView reloadData];
+    [self.rxBannerView autoScrollWithSecond:2];
     [self.view addSubview:self.rxBannerView];
 }
 

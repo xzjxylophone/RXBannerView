@@ -37,7 +37,12 @@
 @property (nonatomic, readonly) RXPageControl *rxPageControl;
 
 
+// 滚动间隔小于1秒,直接表示停止滚动, 动画持续时间是1秒,
+- (void)autoScrollWithSecond:(NSInteger)second;
+// 滚动间隔小于1秒,直接表示停止滚动,
+- (void)autoScrollWithSecond:(NSInteger)second duration:(CGFloat)duration;
 
+- (void)stopAutoScroll;
 
 
 

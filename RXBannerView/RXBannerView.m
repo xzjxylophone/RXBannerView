@@ -7,7 +7,6 @@
 //
 
 #import "RXBannerView.h"
-
 @interface RXBannerView ()<UIScrollViewDelegate>
 
 
@@ -17,6 +16,10 @@
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) RXPageControl *rxPageControl;
+
+@property (nonatomic, strong) NSTimer *autoTimer;
+
+@property (nonatomic, assign) CGFloat animateDuration;
 
 @end
 
@@ -28,6 +31,13 @@
 #pragma mark - Private
 - (void)updateWithCurrentPage:(NSInteger)page
 {
+    if (page < 0) {
+        page = self.rxPageControl.numberOfPages - 1;
+    } else if (page > self.rxPageControl.numberOfPages - 1) {
+        page = 0;
+    } else {
+        // Do Nothing
+    }
     self.rxPageControl.currentPage = page;
 
     if (self.itemViews.count == 0) {
@@ -112,6 +122,43 @@
 }
 
 
+#pragma mark - Private
+- (void)prePageAction
+{
+    
+    NSInteger newPage = self.rxPageControl.currentPage - 1;
+
+    NSLog(@"newPage:%zd", newPage);
+    [self updateWithCurrentPage:newPage];
+}
+- (void)nextPageAction
+{
+    NSInteger newPage = self.rxPageControl.currentPage + 1;
+    
+    NSLog(@"newPage:%zd", newPage);
+    [self updateWithCurrentPage:newPage];
+}
+
+#pragma mark - Action
+- (void)autoTimerAction:(id)sender
+{
+    
+    CGFloat x = self.scrollView.contentOffset.x;
+    [UIView beginAnimations:@"show" context:nil];
+    [UIView setAnimationDuration:self.animateDuration];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(animationDidShowStop:finished:)];
+    
+    self.scrollView.contentOffset = CGPointMake(x + self.frame.size.width, 0);
+    
+    [UIView commitAnimations];
+    
+    
+}
+- (void)animationDidShowStop:(CAAnimation *)anim finished:(BOOL)flag
+{
+    [self nextPageAction];
+}
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -122,23 +169,13 @@
         case 0:
         {
             // 上一页
-            NSInteger newPage = self.rxPageControl.currentPage - 1;
-            if (newPage < 0) {
-                newPage = self.rxPageControl.numberOfPages - 1;
-            }
-            NSLog(@"newPage:%zd", newPage);
-            [self updateWithCurrentPage:newPage];
+            [self prePageAction];
         }
             break;
         case 2:
         {
             // 下一页
-            NSInteger newPage = self.rxPageControl.currentPage + 1;
-            if (newPage > self.rxPageControl.numberOfPages - 1) {
-                newPage = 0;
-            }
-            NSLog(@"newPage:%zd", newPage);
-            [self updateWithCurrentPage:newPage];
+            [self nextPageAction];
         }
             break;
         case 1:
@@ -150,7 +187,28 @@
     }
 }
 
+- (void)autoScrollWithSecond:(NSInteger)second
+{
+    [self autoScrollWithSecond:second duration:1.0f];
+}
 
+
+- (void)autoScrollWithSecond:(NSInteger)second duration:(CGFloat)duration
+{
+    
+    [self.autoTimer invalidate];
+    self.autoTimer = nil;
+    if (second < 1.0) {
+        return;
+    }
+    self.animateDuration = duration;
+    self.autoTimer = [NSTimer scheduledTimerWithTimeInterval:(second + duration) target:self selector:@selector(autoTimerAction:) userInfo:nil repeats:YES];
+}
+
+- (void)stopAutoScroll
+{
+    [self autoScrollWithSecond:0];
+}
 
 #pragma mark - Constructor And Destructor
 - (id)initWithFrame:(CGRect)frame
