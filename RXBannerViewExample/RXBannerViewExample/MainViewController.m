@@ -42,7 +42,7 @@
     // Do any additional setup after loading the view from its nib.
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.rxBannerView = [[RXBannerView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 200)];
-    self.rxBannerView.delegate = self;
+    self.rxBannerView.dataSource = self;
     
     [self.rxBannerView reloadData];
     [self.view addSubview:self.rxBannerView];

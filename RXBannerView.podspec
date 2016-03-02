@@ -10,7 +10,7 @@
 
 Pod::Spec.new do |s|
   s.name     = "RXBannerView"
-  s.version  = "0.1"
+  s.version  = "0.2"
   s.license  = "MIT"
   s.summary  = "RXBannerView is a simple bannerView"
   s.homepage = "https://github.com/xzjxylophone/RXBannerView"
@@ -24,6 +24,7 @@ Pod::Spec.new do |s|
   s.frameworks = 'Foundation', 'UIKit'
   s.requires_arc = true
   s.platform = :ios, '7.0'
+  s.dependency 'RXPageControl'
 end
 
 

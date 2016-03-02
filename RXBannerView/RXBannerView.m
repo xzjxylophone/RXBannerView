@@ -74,7 +74,7 @@
     for (UIView *view in self.itemViews) {
         [view removeFromSuperview];
     }
-    NSInteger count = [self.delegate numberOfPageInRXBannerView:self];
+    NSInteger count = [self.dataSource numberOfPageInRXBannerView:self];
     if (count == 0) {
         return;
     }
@@ -85,7 +85,7 @@
     CGFloat height = self.frame.size.height;
     for (NSInteger i = 0; i < logicCount; i++) {
         NSInteger index = logicCount == count ? i : i % 2;
-        UIView *view = [self.delegate rxBannerView:self viewAtIndex:index];
+        UIView *view = [self.dataSource rxBannerView:self viewAtIndex:index];
         CGRect frame = view.frame;
         frame.origin.x = width * i;
         view.frame = frame;

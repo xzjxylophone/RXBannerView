@@ -28,7 +28,7 @@
 
 
 
-@property (nonatomic, weak) id<RXBannerViewDataSource> delegate;
+@property (nonatomic, weak) id<RXBannerViewDataSource> dataSource;
 
 
 - (void)reloadData;
