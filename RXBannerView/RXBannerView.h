@@ -33,6 +33,9 @@
 
 - (void)reloadData;
 
+- (void)prePageAction;
+- (void)nextPageAction;
+
 
 @property (nonatomic, readonly) RXPageControl *rxPageControl;
 

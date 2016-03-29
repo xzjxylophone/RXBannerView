@@ -122,18 +122,15 @@
 }
 
 
-#pragma mark - Private
+
 - (void)prePageAction
 {
     NSInteger newPage = self.rxPageControl.currentPage - 1;
-//    NSLog(@"newPage:%zd", newPage);
     [self updateWithCurrentPage:newPage];
 }
 - (void)nextPageAction
 {
     NSInteger newPage = self.rxPageControl.currentPage + 1;
-    
-//    NSLog(@"newPage:%zd", newPage);
     [self updateWithCurrentPage:newPage];
 }
 
