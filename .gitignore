@@ -28,6 +28,7 @@ xcuserdata
 *.ipa
 Podfile.lock
 Pods
+.DS_Store
 
 # CocoaPods
 #
