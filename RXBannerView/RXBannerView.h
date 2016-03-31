@@ -25,7 +25,7 @@
 
 
 
-
+@property (nonatomic, assign) NSInteger currentPage;
 
 
 @property (nonatomic, weak) id<RXBannerViewDataSource> dataSource;
@@ -35,6 +35,12 @@
 
 - (void)prePageAction;
 - (void)nextPageAction;
+
+
+- (void)prePageAnimationActionWithDuration:(NSTimeInterval)duration;
+- (void)nextPageAnimationActionWithDuration:(NSTimeInterval)duration;
+
+
 
 
 @property (nonatomic, readonly) RXPageControl *rxPageControl;

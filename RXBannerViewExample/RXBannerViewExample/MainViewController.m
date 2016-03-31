@@ -24,6 +24,13 @@
     return 2;
 }
 
+- (void)btnTouchUpInside:(id)sender
+{
+    [self.rxBannerView nextPageAnimationActionWithDuration:0.3];
+    
+//    [self.rxBannerView prePageAnimationActionWithDuration:0.3];
+}
+
 - (UIView *)rxBannerView:(RXBannerView *)rxBannerView viewAtIndex:(NSInteger)index
 {
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
@@ -47,8 +54,18 @@
     self.rxBannerView.dataSource = self;
     
     [self.rxBannerView reloadData];
-    [self.rxBannerView autoScrollWithSecond:2];
+    [self.rxBannerView autoScrollWithSecond:0];
+    
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(20, 240, 200, 40);
+    [btn setTitle:@"下一页" forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(btnTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [btn setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
     [self.view addSubview:self.rxBannerView];
+    [self.view addSubview:btn];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {

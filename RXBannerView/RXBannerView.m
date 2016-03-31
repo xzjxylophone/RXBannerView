@@ -27,6 +27,15 @@
 
 @implementation RXBannerView
 
+#pragma mark - Proverty
+- (void)setCurrentPage:(NSInteger)currentPage
+{
+    [self updateWithCurrentPage:currentPage];
+}
+- (NSInteger)currentPage
+{
+    return self.rxPageControl.currentPage;
+}
 
 #pragma mark - Private
 - (void)updateWithCurrentPage:(NSInteger)page
@@ -134,6 +143,28 @@
     [self updateWithCurrentPage:newPage];
 }
 
+
+- (void)prePageAnimationActionWithDuration:(NSTimeInterval)duration
+{
+    CGFloat x = self.scrollView.contentOffset.x;
+    [UIView beginAnimations:@"show" context:nil];
+    [UIView setAnimationDuration:duration];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(animationPreDidShowStop:finished:)];
+    self.scrollView.contentOffset = CGPointMake(x - self.frame.size.width, 0);
+    [UIView commitAnimations];
+}
+- (void)nextPageAnimationActionWithDuration:(NSTimeInterval)duration
+{
+    CGFloat x = self.scrollView.contentOffset.x;
+    [UIView beginAnimations:@"show" context:nil];
+    [UIView setAnimationDuration:duration];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(animationDidShowStop:finished:)];
+    self.scrollView.contentOffset = CGPointMake(x + self.frame.size.width, 0);
+    [UIView commitAnimations];
+}
+
 #pragma mark - Action
 - (void)autoTimerAction:(id)sender
 {
@@ -153,6 +184,10 @@
 - (void)animationDidShowStop:(CAAnimation *)anim finished:(BOOL)flag
 {
     [self nextPageAction];
+}
+- (void)animationPreDidShowStop:(CAAnimation *)anim finished:(BOOL)flag
+{
+    [self prePageAction];
 }
 #pragma mark - UIScrollViewDelegate
 
