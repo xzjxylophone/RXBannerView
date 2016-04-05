@@ -120,6 +120,8 @@
         self.scrollView.contentOffset = CGPointMake(0, 0);
         self.scrollView.contentSize = CGSizeMake(width, height);
         [self.scrollView addSubview:self.itemViews[0]];
+        // 当是只有1个的时候,直接停止任何自动滚动!!!
+        [self stopAutoScroll];
     } else {
         self.rxPageControl.hidden = NO;
         self.scrollView.contentOffset = CGPointMake(width, 0);

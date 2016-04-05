@@ -10,7 +10,7 @@
 
 Pod::Spec.new do |s|
   s.name     = "RXBannerView"
-  s.version  = "0.7"
+  s.version  = "0.8"
   s.license  = "MIT"
   s.summary  = "RXBannerView is a simple bannerView"
   s.homepage = "https://github.com/xzjxylophone/RXBannerView"
